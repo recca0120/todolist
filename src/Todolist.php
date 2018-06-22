@@ -16,13 +16,6 @@ class Todolist
         array_push($this->items, $this->createTodo($todo, true));
     }
 
-    public function edit($id, Todo $todo)
-    {
-        $oldTodo = $this->get($id);
-        $todo = $this->createTodo($todo, false);
-        $oldTodo->fill($todo->toArray());
-    }
-
     public function delete($id)
     {
         $this->items = array_filter($this->items, function ($todo) use ($id) {
@@ -41,10 +34,10 @@ class Todolist
 
     public function complete($id)
     {
-        $this->edit($id, new Todo([
+        $this->get($id)->fill([
             'status' => 'completed',
-            'completed_at' => date('Y-m-d H:i:s')
-        ]));
+            'completed_at' => date('Y-m-d H:i:s'),
+        ]);
     }
 
     private function nextId()

@@ -46,23 +46,6 @@ class TodolistTest extends TestCase
     }
 
     /** @test */
-    public function it_should_edit_todo()
-    {
-        $todolist = new Todolist();
-        $todolist->add(new Todo([
-            'text' => 'todo 1',
-        ]));
-
-        $todolist->edit(1, new Todo([
-            'text' => 'todo 2'
-        ]));
-
-        $this->assertEquals([
-            new Todo(['id' => 1, 'text' => 'todo 2', 'status' => 'new', 'completed_at' => null]),
-        ], $todolist->all());
-    }
-
-    /** @test */
     public function it_should_delete_todo()
     {
         $todolist = new Todolist();
