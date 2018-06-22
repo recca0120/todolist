@@ -15,9 +15,12 @@ class Todolist
     {
         if (is_array($todo) === false) {
             $todo = [
-                'id' => $this->nextId(),
                 'text' => $todo,
             ];
+        }
+
+        if (empty($todo['id']) === true) {
+            $todo['id'] = $this->nextId();
         }
 
         array_push($this->items, $todo);

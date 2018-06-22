@@ -17,10 +17,29 @@ class TodolistTest extends TestCase
         $todolist = new Todolist();
         $todolist->add('todo 1');
 
-        $this->assertEquals([[
-            'id' => 1,
-            'text' => 'todo 1'
-        ]], $todolist->all());
+        $this->assertEquals([
+            ['id' => 1, 'text' => 'todo 1'],
+        ], $todolist->all());
+
+        $todolist->add([
+            'text' => 'todo 2',
+        ]);
+
+        $this->assertEquals([
+            ['id' => 1, 'text' => 'todo 1'],
+            ['id' => 2, 'text' => 'todo 2'],
+        ], $todolist->all());
+
+        $todolist->add([
+            'id' => 4,
+            'text' => 'todo 4',
+        ]);
+
+        $this->assertEquals([
+            ['id' => 1, 'text' => 'todo 1'],
+            ['id' => 2, 'text' => 'todo 2'],
+            ['id' => 4, 'text' => 'todo 4'],
+        ], $todolist->all());
     }
 
     /** @test */
