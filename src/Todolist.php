@@ -13,11 +13,9 @@ class Todolist
 
     public function add($todo)
     {
-        if (is_array($todo) === false) {
-            $todo = [
-                'text' => $todo,
-            ];
-        }
+        $todo = is_array($todo) === true ? $todo : [
+            'text' => $todo,
+        ];
 
         if (empty($todo['id']) === true) {
             $todo['id'] = $this->nextId();
@@ -45,16 +43,18 @@ class Todolist
 
     public function delete($id)
     {
-        $this->items = array_filter($this->items, function($todo) use ($id) {
+        $this->items = array_filter($this->items, function ($todo) use ($id) {
             return $todo['id'] !== $id;
         });
     }
 
-    public function get($text)
+    public function get($id)
     {
-        $index = array_search($text, $this->items);
+        $items = array_filter($this->items, function($todo) use ($id) {
+            return $todo['id'] === $id;
+        });
 
-        return $this->items[$index];
+        return end($items);
     }
 
     private function nextId()
