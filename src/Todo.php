@@ -36,4 +36,9 @@ class Todo implements ArrayAccess
     {
         return $this->attributes;
     }
+
+    public function fill($attributes)
+    {
+        $this->attributes = array_merge($this->attributes, $attributes);
+    }
 }

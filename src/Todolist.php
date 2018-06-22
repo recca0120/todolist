@@ -15,20 +15,14 @@ class Todolist
 
     public function add($todo)
     {
-        array_push($this->items, $this->createTodo($todo));
+        array_push($this->items, $this->createTodo($todo, true));
     }
 
     public function edit($id, $todo)
     {
         $oldTodo = $this->get($id);
-
-        $index = array_search($oldTodo, $this->items);
-
-        $todo = is_array($todo) === true ? $todo : [
-            'text' => $todo,
-        ];
-
-        $this->items[$index] = array_merge($oldTodo, $todo);
+        $todo = $this->createTodo($todo, false);
+        $oldTodo->fill($todo->toArray());
     }
 
     public function delete($id)
@@ -60,7 +54,7 @@ class Todolist
         return count($this->items) + 1;
     }
 
-    private function createTodo($todo)
+    private function createTodo($todo, $isNew = false)
     {
         if ($todo instanceof Todo) {
             return $todo;
@@ -70,12 +64,13 @@ class Todolist
             'text' => $todo,
         ];
 
-        if (empty($todo['id']) === true) {
-            $todo['id'] = $this->nextId();
+        if ($isNew === true) {
+            if (empty($todo['id']) === true) {
+                $todo['id'] = $this->nextId();
+            }
+            $todo['status'] = 'new';
+            $todo['completed_at'] = null;
         }
-
-        $todo['status'] = 'new';
-        $todo['completed_at'] = null;
 
         return new Todo($todo);
     }

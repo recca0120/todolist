@@ -87,4 +87,18 @@ class TodolistTest extends TestCase
             'id' => 1, 'text' => 'todo 1', 'status' => 'completed', 'completed_at' => date('Y-m-d H:i:s')
         ], $todolist->get(1));
     }
+
+    /** @test */
+    public function it_should_get_todo_and_modify()
+    {
+        $todolist = new Todolist();
+        $todolist->add('todo 1');
+        $todo = $todolist->get(1);
+
+        $todo['text'] = 'todo 2';
+
+        $this->assertEquals([
+            ['id' => 1, 'text' => 'todo 2', 'status' => 'new', 'completed_at' => null],
+        ], $todolist->all());
+    }
 }
