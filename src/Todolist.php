@@ -21,4 +21,11 @@ class Todolist
         $index = array_search($oldText, $this->items);
         $this->items[$index] = $newText;
     }
+
+    public function delete($text)
+    {
+        $index = array_search($oldText, $this->items);
+        unset($this->items[$index]);
+        $this->items = array_values($this->items);
+    }
 }
