@@ -8,17 +8,15 @@ class Todolist
 
     public function all()
     {
-        return array_map(function($todo) {
-            return $todo->toArray();
-        }, $this->items);
+        return $this->items;
     }
 
-    public function add($todo)
+    public function add(Todo $todo)
     {
         array_push($this->items, $this->createTodo($todo, true));
     }
 
-    public function edit($id, $todo)
+    public function edit($id, Todo $todo)
     {
         $oldTodo = $this->get($id);
         $todo = $this->createTodo($todo, false);
@@ -43,10 +41,10 @@ class Todolist
 
     public function complete($id)
     {
-        $this->edit($id, [
+        $this->edit($id, new Todo([
             'status' => 'completed',
             'completed_at' => date('Y-m-d H:i:s')
-        ]);
+        ]));
     }
 
     private function nextId()
@@ -56,22 +54,14 @@ class Todolist
 
     private function createTodo($todo, $isNew = false)
     {
-        if ($todo instanceof Todo) {
-            return $todo;
-        }
-
-        $todo = is_array($todo) === true ? $todo : [
-            'text' => $todo,
-        ];
-
         if ($isNew === true) {
-            if (empty($todo['id']) === true) {
-                $todo['id'] = $this->nextId();
+            if (empty($todo->id) === true) {
+                $todo->id = $this->nextId();
             }
-            $todo['status'] = 'new';
-            $todo['completed_at'] = null;
+            $todo->status = 'new';
+            $todo->completed_at = null;
         }
 
-        return new Todo($todo);
+        return $todo;
     }
 }
