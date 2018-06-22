@@ -2,11 +2,14 @@
 
 namespace Recca0120\Todolist;
 
+use Recca0120\Todolist\Todo as TodoInterface;
+use Recca0120\Todolist\TodoRepository as TodoRepositoryInterface;
+
 class Todolist
 {
     private $todoRepository;
 
-    public function __construct(TodoRepository $todoRepository)
+    public function __construct(TodoRepositoryInterface $todoRepository)
     {
         $this->todoRepository = $todoRepository;
     }
@@ -16,7 +19,7 @@ class Todolist
         return $this->todoRepository->all();
     }
 
-    public function add(Todo $todo)
+    public function add(TodoInterface $todo)
     {
         $this->todoRepository->create($todo->toArray());
     }

@@ -3,8 +3,9 @@
 namespace Recca0120\Todolist;
 
 use ArrayAccess;
+use Recca0120\Todolist\Contracts\Todo as TodoInterface;
 
-class Todo implements ArrayAccess
+class Todo implements TodoInterface, ArrayAccess
 {
     private $attributes;
 
@@ -61,7 +62,7 @@ class Todo implements ArrayAccess
         return $this->attributes;
     }
 
-    public function fill($attributes)
+    public function fill(array $attributes)
     {
         $this->attributes = array_merge($this->attributes, $attributes);
     }

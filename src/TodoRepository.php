@@ -2,7 +2,9 @@
 
 namespace Recca0120\Todolist;
 
-class TodoRepository
+use Recca0120\Todolist\Contracts\TodoRepository as TodoRepositoryInterface;
+
+class TodoRepository implements TodoRepositoryInterface
 {
     public $items = [];
 
@@ -11,7 +13,7 @@ class TodoRepository
         return $this->items;
     }
 
-    public function create($attributes)
+    public function create(array $attributes)
     {
         array_push($this->items, $this->createTodo($attributes));
     }
