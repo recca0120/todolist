@@ -43,11 +43,11 @@ class Todolist
         $this->items[$index] = array_merge($oldTodo, $todo);
     }
 
-    public function delete($text)
+    public function delete($id)
     {
-        $index = array_search($text, $this->items);
-        unset($this->items[$index]);
-        $this->items = array_values($this->items);
+        $this->items = array_filter($this->items, function($todo) use ($id) {
+            return $todo['id'] !== $id;
+        });
     }
 
     public function get($text)

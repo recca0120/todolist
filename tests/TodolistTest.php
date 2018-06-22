@@ -59,7 +59,7 @@ class TodolistTest extends TestCase
     {
         $todolist = new Todolist();
         $todolist->add('todo 1');
-        $todolist->delete('todo 1');
+        $todolist->delete(1);
 
         $this->assertSame([], $todolist->all());
     }
