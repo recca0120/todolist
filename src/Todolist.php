@@ -15,4 +15,10 @@ class Todolist
     {
         array_push($this->items, $text);
     }
+
+    public function edit($oldText, $newText)
+    {
+        $index = array_search($oldText, $this->items);
+        $this->items[$index] = $newText;
+    }
 }
