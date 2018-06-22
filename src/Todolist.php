@@ -8,23 +8,14 @@ class Todolist
 
     public function all()
     {
-        return $this->items;
+        return array_map(function($todo) {
+            return $todo->toArray();
+        }, $this->items);
     }
 
     public function add($todo)
     {
-        $todo = is_array($todo) === true ? $todo : [
-            'text' => $todo,
-        ];
-
-        if (empty($todo['id']) === true) {
-            $todo['id'] = $this->nextId();
-        }
-
-        $todo['status'] = 'new';
-        $todo['completed_at'] = null;
-
-        array_push($this->items, $todo);
+        array_push($this->items, $this->createTodo($todo));
     }
 
     public function edit($id, $todo)
@@ -67,5 +58,25 @@ class Todolist
     private function nextId()
     {
         return count($this->items) + 1;
+    }
+
+    private function createTodo($todo)
+    {
+        if ($todo instanceof Todo) {
+            return $todo;
+        }
+
+        $todo = is_array($todo) === true ? $todo : [
+            'text' => $todo,
+        ];
+
+        if (empty($todo['id']) === true) {
+            $todo['id'] = $this->nextId();
+        }
+
+        $todo['status'] = 'new';
+        $todo['completed_at'] = null;
+
+        return new Todo($todo);
     }
 }

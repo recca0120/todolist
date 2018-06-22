@@ -31,4 +31,9 @@ class Todo implements ArrayAccess
     public function offsetGet($key) {
         return $this->attributes[$key];
     }
+
+    public function toArray()
+    {
+        return $this->attributes;
+    }
 }
