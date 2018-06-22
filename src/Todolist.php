@@ -21,6 +21,9 @@ class Todolist
             $todo['id'] = $this->nextId();
         }
 
+        $todo['status'] = 'new';
+        $todo['completed_at'] = null;
+
         array_push($this->items, $todo);
     }
 

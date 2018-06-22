@@ -18,7 +18,7 @@ class TodolistTest extends TestCase
         $todolist->add('todo 1');
 
         $this->assertEquals([
-            ['id' => 1, 'text' => 'todo 1'],
+            ['id' => 1, 'text' => 'todo 1', 'status' => 'new', 'completed_at' => null],
         ], $todolist->all());
 
         $todolist->add([
@@ -26,8 +26,8 @@ class TodolistTest extends TestCase
         ]);
 
         $this->assertEquals([
-            ['id' => 1, 'text' => 'todo 1'],
-            ['id' => 2, 'text' => 'todo 2'],
+            ['id' => 1, 'text' => 'todo 1', 'status' => 'new', 'completed_at' => null],
+            ['id' => 2, 'text' => 'todo 2', 'status' => 'new', 'completed_at' => null],
         ], $todolist->all());
 
         $todolist->add([
@@ -36,9 +36,9 @@ class TodolistTest extends TestCase
         ]);
 
         $this->assertEquals([
-            ['id' => 1, 'text' => 'todo 1'],
-            ['id' => 2, 'text' => 'todo 2'],
-            ['id' => 4, 'text' => 'todo 4'],
+            ['id' => 1, 'text' => 'todo 1', 'status' => 'new', 'completed_at' => null],
+            ['id' => 2, 'text' => 'todo 2', 'status' => 'new', 'completed_at' => null],
+            ['id' => 4, 'text' => 'todo 4', 'status' => 'new', 'completed_at' => null],
         ], $todolist->all());
     }
 
@@ -50,7 +50,7 @@ class TodolistTest extends TestCase
         $todolist->edit(1, 'todo 2');
 
         $this->assertEquals([
-            ['id' => 1, 'text' => 'todo 2'],
+            ['id' => 1, 'text' => 'todo 2', 'status' => 'new', 'completed_at' => null],
         ], $todolist->all());
     }
 
@@ -71,7 +71,7 @@ class TodolistTest extends TestCase
         $todolist->add('todo 1');
 
         $this->assertEquals([
-            'id' => 1, 'text' => 'todo 1',
+            'id' => 1, 'text' => 'todo 1', 'status' => 'new', 'completed_at' => null,
         ], $todolist->get(1));
     }
 }
