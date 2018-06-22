@@ -72,7 +72,7 @@ class TodolistTest extends TestCase
 
         $this->assertEquals([
             'id' => 1, 'text' => 'todo 1', 'status' => 'new', 'completed_at' => null,
-        ], $todolist->get(1));
+        ], $todolist->get(1)->toArray());
     }
 
      /** @test */
@@ -85,7 +85,7 @@ class TodolistTest extends TestCase
 
         $this->assertEquals([
             'id' => 1, 'text' => 'todo 1', 'status' => 'completed', 'completed_at' => date('Y-m-d H:i:s')
-        ], $todolist->get(1));
+        ], $todolist->get(1)->toArray());
     }
 
     /** @test */
