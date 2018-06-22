@@ -11,9 +11,16 @@ class Todolist
         return $this->items;
     }
 
-    public function add($text)
+    public function add($todo)
     {
-        array_push($this->items, $text);
+        if (is_array($todo) === false) {
+            $todo = [
+                'id' => $this->nextId(),
+                'text' => $todo,
+            ];
+        }
+
+        array_push($this->items, $todo);
     }
 
     public function edit($oldText, $newText)
@@ -34,5 +41,10 @@ class Todolist
         $index = array_search($text, $this->items);
 
         return $this->items[$index];
+    }
+
+    private function nextId()
+    {
+        return count($this->items) + 1;
     }
 }
