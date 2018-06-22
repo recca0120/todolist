@@ -4,32 +4,31 @@ namespace Recca0120\Todolist;
 
 class Todolist
 {
-    private $items = [];
+    private $todoRepository;
+
+    public function __construct(TodoRepository $todoRepository)
+    {
+        $this->todoRepository = $todoRepository;
+    }
 
     public function all()
     {
-        return $this->items;
+        return $this->todoRepository->all();
     }
 
     public function add(Todo $todo)
     {
-        array_push($this->items, $this->createTodo($todo, true));
+        $this->todoRepository->create($todo->toArray());
     }
 
     public function delete($id)
     {
-        $this->items = array_filter($this->items, function ($todo) use ($id) {
-            return $todo['id'] !== $id;
-        });
+        $this->todoRepository->delete($id);
     }
 
     public function get($id)
     {
-        $items = array_filter($this->items, function ($todo) use ($id) {
-            return $todo['id'] === $id;
-        });
-
-        return end($items);
+        return $this->todoRepository->get($id);;
     }
 
     public function complete($id)
@@ -38,23 +37,5 @@ class Todolist
             'status' => 'completed',
             'completed_at' => date('Y-m-d H:i:s'),
         ]);
-    }
-
-    private function nextId()
-    {
-        return count($this->items) + 1;
-    }
-
-    private function createTodo($todo, $isNew = false)
-    {
-        if ($isNew === true) {
-            if (empty($todo->id) === true) {
-                $todo->id = $this->nextId();
-            }
-            $todo->status = 'new';
-            $todo->completed_at = null;
-        }
-
-        return $todo;
     }
 }

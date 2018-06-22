@@ -3,19 +3,20 @@
 use Recca0120\Todolist\Todo;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Todolist\Todolist;
+use Recca0120\Todolist\TodoRepository;
 
 class TodolistTest extends TestCase
 {
     /** @test */
     public function it_should_create_instance()
     {
-        $this->assertInstanceOf(Todolist::class, new Todolist());
+        $this->assertInstanceOf(Todolist::class, new Todolist(new TodoRepository));
     }
 
     /** @test */
     public function it_should_add_todo()
     {
-        $todolist = new Todolist();
+        $todolist = new Todolist(new TodoRepository);
         $todolist->add(new Todo([
             'text' => 'todo 1',
         ]));
@@ -48,7 +49,7 @@ class TodolistTest extends TestCase
     /** @test */
     public function it_should_delete_todo()
     {
-        $todolist = new Todolist();
+        $todolist = new Todolist(new TodoRepository);
         $todolist->add(new Todo([
             'text' => 'todo 1',
         ]));
@@ -61,7 +62,7 @@ class TodolistTest extends TestCase
     /** @test */
     public function it_should_get_todo()
     {
-        $todolist = new Todolist();
+        $todolist = new Todolist(new TodoRepository);
         $todolist->add(new Todo([
             'text' => 'todo 1',
         ]));
@@ -74,7 +75,7 @@ class TodolistTest extends TestCase
      /** @test */
     public function it_should_be_completed()
     {
-        $todolist = new Todolist();
+        $todolist = new Todolist(new TodoRepository);
         $todolist->add(new Todo([
             'text' => 'todo 1',
         ]));
@@ -90,7 +91,7 @@ class TodolistTest extends TestCase
     /** @test */
     public function it_should_get_todo_and_modify()
     {
-        $todolist = new Todolist();
+        $todolist = new Todolist(new TodoRepository);
         $todolist->add(new Todo([
             'text' => 'todo 1'
         ]));
