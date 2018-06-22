@@ -26,11 +26,7 @@ class Todolist
 
     public function edit($id, $todo)
     {
-        $items = array_filter($this->items, function($todo) use ($id) {
-            return $todo['id'] === $id;
-        });
-
-        $oldTodo = end($items);
+        $oldTodo = $this->get($id);
 
         $index = array_search($oldTodo, $this->items);
 
@@ -50,7 +46,7 @@ class Todolist
 
     public function get($id)
     {
-        $items = array_filter($this->items, function($todo) use ($id) {
+        $items = array_filter($this->items, function ($todo) use ($id) {
             return $todo['id'] === $id;
         });
 
