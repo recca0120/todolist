@@ -65,4 +65,9 @@ class Todo implements ArrayAccess
     {
         $this->attributes = array_merge($this->attributes, $attributes);
     }
+
+    public function save()
+    {
+        return isset($this->id) === false ? 'insert' : 'update';
+    }
 }
