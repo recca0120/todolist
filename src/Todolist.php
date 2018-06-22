@@ -56,6 +56,14 @@ class Todolist
         return end($items);
     }
 
+    public function complete($id)
+    {
+        $this->edit($id, [
+            'status' => 'completed',
+            'completed_at' => date('Y-m-d H:i:s')
+        ]);
+    }
+
     private function nextId()
     {
         return count($this->items) + 1;

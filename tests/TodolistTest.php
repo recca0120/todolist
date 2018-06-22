@@ -74,4 +74,17 @@ class TodolistTest extends TestCase
             'id' => 1, 'text' => 'todo 1', 'status' => 'new', 'completed_at' => null,
         ], $todolist->get(1));
     }
+
+     /** @test */
+    public function it_should_be_completed()
+    {
+        $todolist = new Todolist();
+        $todolist->add('todo 1');
+
+        $todolist->complete(1);
+
+        $this->assertEquals([
+            'id' => 1, 'text' => 'todo 1', 'status' => 'completed', 'completed_at' => date('Y-m-d H:i:s')
+        ], $todolist->get(1));
+    }
 }
