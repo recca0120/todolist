@@ -47,9 +47,11 @@ class TodolistTest extends TestCase
     {
         $todolist = new Todolist();
         $todolist->add('todo 1');
-        $todolist->edit('todo 1', 'todo 2');
+        $todolist->edit(1, 'todo 2');
 
-        $this->assertSame(['todo 2'], $todolist->all());
+        $this->assertEquals([
+            ['id' => 1, 'text' => 'todo 2']
+        ], $todolist->all());
     }
 
     /** @test */

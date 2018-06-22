@@ -26,10 +26,21 @@ class Todolist
         array_push($this->items, $todo);
     }
 
-    public function edit($oldText, $newText)
+    public function edit($id, $todo)
     {
-        $index = array_search($oldText, $this->items);
-        $this->items[$index] = $newText;
+        $items = array_filter($this->items, function($todo) use ($id) {
+            return $todo['id'] === $id;
+        });
+
+        $oldTodo = end($items);
+
+        $index = array_search($oldTodo, $this->items);
+
+        $todo = is_array($todo) === true ? $todo : [
+            'text' => $todo,
+        ];
+
+        $this->items[$index] = array_merge($oldTodo, $todo);
     }
 
     public function delete($text)
