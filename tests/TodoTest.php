@@ -24,4 +24,18 @@ class TodoTest extends TestCase
         $this->assertSame('new', $todo['status']);
         $this->assertSame(null, $todo['completed_at']);
     }
+
+    /** @test */
+    public function it_should_get_value_like_property()
+    {
+        $todo = new Todo([
+            'id' => 1,
+            'text' => 'todo 1',
+        ]);
+
+        $this->assertSame(1, $todo->id);
+        $this->assertSame('todo 1', $todo->text);
+        $this->assertSame('new', $todo->status);
+        $this->assertSame(null, $todo->completed_at);
+    }
 }
